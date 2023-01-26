@@ -2,11 +2,10 @@
 // Utility Functions
 //～*～♡～*～♥～*～♡～*～♥～*～♡～*～♥～*～♡～*～//
 
-//render board and render cell goes here
 
 //----------------------------------------
 function renderBoard() {
-  //TODO add things to the table tag
+
   var strHTML = `<table><tbody>`
   for (var i = 0; i < gBoard.length; i++) {
     strHTML += `<tr>`
@@ -23,14 +22,12 @@ function renderBoard() {
   elContainer.innerHTML = strHTML
 }
 
-//**implement later
 //----------------------------------------
 function renderEmoji(emote) {
   var elSmiley = document.querySelector('.restart')
   elSmiley.innerText = emote
 }
 
-//use this for all changes later - maybe
 //----------------------------------------
 function renderCell(pos, value) {
   var elCell = document.querySelector(`.cell${pos.i}-${pos.j}`)
@@ -88,9 +85,5 @@ function startTimer(startTime) {
     elTimer.innerHTML = `${hour}:${minute}:${seconds}`
   }, 1000)
 }
-
-
-
-//test:
 
 

@@ -1,5 +1,6 @@
 'use strict'
-//All logic goes here
+//Game basics
+//Functionality in Main file
 //----------------------------------------
 const HAPPY = '😊'
 const DEAD = '🥴'
@@ -30,6 +31,8 @@ function onInit() {
   gMinesPos = []
   isTimerOn = false
   renderEmoji(HAPPY)
+  var elModal = document.querySelector('.modal')
+  elModal.style.display = 'none'
 }
 //----------------------------------------
 function setMode(elMode) {
@@ -59,7 +62,9 @@ function gameOver() {
     renderClee(currMine, MINE)
   }
   renderEmoji(DEAD)
-  //add modal
+  //not working
+  var elModal = document.querySelector('.modal')
+  elModal.style.display = 'block'
 }
 //----------------------------------------
 function resetGame() {
@@ -74,6 +79,7 @@ function resetGame() {
 }
 
 //check victory - if all mines are flagged + all cells are shown
+//not working - I removed the call from the code
 //----------------------------------------
 function isVictory() {
   var totalCellCount = gLevel.SIZE ** 2
