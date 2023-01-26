@@ -14,9 +14,9 @@ function renderBoard() {
       var currCell = gBoard[i][j]
       var className = `cell cell${i}-${j}`
       var cellVal = currCell.isMine ? MINE : currCell.minesAround
-      strHTML += `<td class="${className}" onclick="onCellClicked(this,${i},${j})" oncontextmenu="onCellMarked(this, ${i}, ${j}); return false;">${cellVal}</td>`
+      strHTML += `<td class="${className}" onclick="onCellClicked(this,${i},${j})" oncontextmenu="onCellMarked(event, this, ${i}, ${j})">${''}</td>`
     }
-    strHTML += `<tr>`
+    strHTML += `</tr>`
   }
   strHTML += `</tbody></table>`
   var elContainer = document.querySelector('.container')
@@ -89,8 +89,8 @@ function startTimer(startTime) {
   }, 1000)
 }
 
-// don't need
-//----------------------------------------
-// function stopTimer() {
-//   clearInterval(gtimerId)
-// }
+
+
+//test:
+
+

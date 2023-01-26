@@ -21,17 +21,15 @@ var gTimerInterval
 var gLives
 //----------------------------------------
 function buildBoard(size) {
-  var board = []
+  const board = []
   for (var i = 0; i < size; i++) {
-    board[i] = []
+    board.push([])
     for (var j = 0; j < size; j++) {
       board[i][j] = {
         isShown: false,
         isMine: false,
         isMarked: false,
-        minesAround: '', 
-        i: i,
-        j: j, //check later if to keep these
+        minesAround: '',
       }
     }
   }
@@ -49,15 +47,15 @@ function setMinesNegsCount(board, rowIdx, colIdx) {
     }
   }
   if (!minesAround) minesAround = ''
+  console.log('minesAround', minesAround)
   return minesAround
 }
-
 
 //----------------------------------------
 function onCellClicked(elCell, i, j) {
   if (!gGame.isOn) return
-  if (elCell.isShown) return
-  elCell.minesAround = setMinesNegsCount(gBoard, i, j)
+  var cell = gBoard[i][j]
+  if (cell.isShown) return
 
   if (!isTimerOn) {
     startTimer(Date.now())
@@ -65,59 +63,68 @@ function onCellClicked(elCell, i, j) {
   }
   if (elCell.isMarked) return
 
-  
   //this is bugged - first cell clicked doesn't immediately render the number (it shows on 2nd click)
-  //   if (gIsFirstClick) {
-      //     placeMines()
-      //     renderBoard()
-      //     if (elCell.isMine) return
-      //     gIsFirstClick = false
-      //   }
-      
-//if no negs - expand 1st degree negs
-  if (!elCell.minesAround) {
-    elCell.isShown = true
-    expandShown(gBoard, i, j)
+  if (gIsFirstClick) {
+    placeMines(i, j)
+    // renderBoard()
+    // if (elCell.isMine) return
+    gIsFirstClick = false
   }
 
+  //if no negs - expand 1st degree negs
+  var pos = { i, j }
   //if the cell has negs - reveal it with the count of mines
-  if (!elCell.isMine) {
-    elCell.isShown = true
-    elCell.minesAround = setMinesNegsCount(gBoard, i, j)
-    console.log(elCell.minesAround)
-    elCell.innerText = elCell.minesAround
+  if (!cell.isMine) {
+    cell.isShown = true
+    cell.minesAround = setMinesNegsCount(gBoard, i, j)
+    if (!cell.minesAround) {
+      expandShown(gBoard, i, j)
+    }
+    elCell.innerText = cell.minesAround
   }
 
-  //BUGGED if MINE - reveal the mine - call game over
-  if (elCell.isMine) {
-    //do the 3 lives later
-    elCell.isShown = true
-    // renderCell(MINE)
-    gGame.shownCount++
-    //do the smiley
-    //call game over
+  //BUGGED if MINE - reveal the mine - call game over ++Lives logic
+  if (cell.isMine) {
+    if (gLives) {
+      cell.isShown = true
+      renderCell(pos, MINE)
+      gGame.shownCount++
+      renderEmoji(DEAD)
+      gLives--
+    } else {
+      gameOver()
+    }
+    // TODO FIX THIS
+    isVictory()
+    // return
   }
   elCell.classList.add('revealed')
+  // elCell.isShown = true
 }
 
 //----------------------------------------
-function placeMines() {
-  //loop and randomint
+function placeMines(i, j) {
+  console.log('placing')
   for (var i = 0; i < gLevel.MINES; i++) {
     var row = getRandomIntInclusive(0, gLevel.SIZE - 1)
     var col = getRandomIntInclusive(0, gLevel.SIZE - 1)
-
+    if (row === i && col === j) {
+      i--
+      continue
+    }
     if (!gBoard[row][col].isMine) {
       gBoard[row][col].isMine = true
-    } 
+      // renderCell({ i: row, j: col }, MINE)
+    } else {
+      i--
+    }
   }
 }
 
-
-
 //marking - works fine
 //----------------------------------------
-function onCellMarked(elCell) {
+function onCellMarked(ev, elCell) {
+  ev.preventDefault()
   if (!elCell.isShown) {
     if (!elCell.isMarked) {
       elCell.isMarked = true
@@ -131,8 +138,6 @@ function onCellMarked(elCell) {
   }
 }
 
-
-
 //expand cell to 1st degree if it does not have mines around it
 //works fine, but doesn't show minesAround
 function expandShown(board, i, j) {
@@ -141,9 +146,12 @@ function expandShown(board, i, j) {
       if (k < 0 || k >= board.length) continue
       for (var l = j - 1; l <= j + 1; l++) {
         if (l < 0 || l >= board[0].length) continue
-        if (!board[k][l].isShown && board[k][l].minesAround === '') {
+        board[k][l].minesAround = setMinesNegsCount(board, k,l)
+        if (!board[k][l].isShown) {
           board[k][l].isShown = true
+
           var elCell = document.querySelector(`td.cell${k}-${l}`)
+          elCell.innerText = board[k][l].minesAround
           elCell.classList.add('revealed')
         }
       }
@@ -151,4 +159,8 @@ function expandShown(board, i, j) {
   }
 }
 
+//TEST cell click
 
+// function onCellClicked(i,j){
+//   if(gBoard[i][j].minesAround) {}
+// }

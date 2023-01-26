@@ -1,10 +1,10 @@
 'use strict'
 //All logic goes here
-
+//----------------------------------------
 const HAPPY = '😊'
 const DEAD = '🥴'
 const WINNER = '😎'
-
+//----------------------------------------
 var gGame = {
   isOn: false,
   shownCount: 0,
@@ -16,21 +16,22 @@ var gBoard
 var isTimerOn
 var gMinesPos = []
 
+//----------------------------------------
 function onInit() {
   gGame.isOn = true
   gBoard = buildBoard(gLevel.SIZE, gLevel.MINES)
   gFlaggedMines = 0
-  placeMines() //switch these after you're done coding
   renderBoard()
+  // placeMines() //switch these after you're done coding
   gGame.markedCount = 0
   gGame.shownCount = 0
-  //not implemented yet
-  // gLives = 3
-  // gMinesCoord = []
+  gIsFirstClick = true
+  gLives = 3
+  gMinesPos = []
   isTimerOn = false
-  //renderEmoji(HAPPY)
+  renderEmoji(HAPPY)
 }
-
+//----------------------------------------
 function setMode(elMode) {
   switch (elMode.dataset.level) {
     case 'Beginner':
@@ -45,15 +46,12 @@ function setMode(elMode) {
       gLevel.SIZE = 12
       gLevel.MINES = 30
       break
-    default:
-      gLevel.SIZE = 4
-      gLevel.MINES = 2
-      break
   }
   resetGame()
 }
 
 //if user clicks a mine - render smiley, reveal all mines
+//----------------------------------------
 function gameOver() {
   for (var i = 0; i < gMinesPos.length; i++) {
     var currMine = gMinesPos[i]
@@ -61,14 +59,9 @@ function gameOver() {
     renderClee(currMine, MINE)
   }
   renderEmoji(DEAD)
-  clearInterval(gTimerInterval)
-  if (gTimerInterval) gTimerInterval = null
-  isTimerOn = !isTimerOn
-  gMinesPos = []
-
   //add modal
 }
-
+//----------------------------------------
 function resetGame() {
   var timer = document.querySelector('.timer')
   timer.innerText = '00:00:00'
@@ -76,11 +69,12 @@ function resetGame() {
   if (gTimerInterval) gTimerInterval = null
   isTimerOn = !isTimerOn
   gMinesPos = []
+  gGame.isOn = false
   onInit()
 }
 
 //check victory - if all mines are flagged + all cells are shown
-
+//----------------------------------------
 function isVictory() {
   var totalCellCount = gLevel.SIZE ** 2
   var usedCells = gGame.shownCount + gFlaggedMines
