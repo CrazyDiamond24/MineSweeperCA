@@ -6,16 +6,14 @@
 
 //----------------------------------------
 function renderBoard() {
-  //render board only once oninit
   //TODO add things to the table tag
   var strHTML = `<table><tbody>`
   for (var i = 0; i < gBoard.length; i++) {
     strHTML += `<tr>`
     for (var j = 0; j < gBoard[i].length; j++) {
       var currCell = gBoard[i][j]
-      var className = `cell cell-${i}-${j} covered`
+      var className = `cell cell${i}-${j}`
       var cellVal = currCell.isMine ? MINE : currCell.minesAround
-      //each cell has class cell + location + state, and onclick events
       strHTML += `<td class="${className}" onclick="onCellClicked(this,${i},${j})" oncontextmenu="onCellMarked(this, ${i}, ${j}); return false;">${cellVal}</td>`
     }
     strHTML += `<tr>`
@@ -24,27 +22,19 @@ function renderBoard() {
   var elContainer = document.querySelector('.container')
   elContainer.innerHTML = strHTML
 }
-//Use Later 
+
+//**implement later
 //----------------------------------------
-function getNegs(rowIdx, colIdx) {
-  var negsLocation = []
-  for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-    if (i < 0 || i > gBoard.length - 1) continue
-    for (var j= colIdx -1; j<=colIdx +1; j++) {
-        if (j < 0 || j> gBoard[0].length -1) continue
-        if (i === rowIdx && j === colIdx) continue
-        if (!gBoard[i][j].isShown) {
-            negsLocation.push({i,j})
-        }
-    }
-  }
-  return negs
+function renderEmoji(emote) {
+  var elSmiley = document.querySelector('.restart')
+  elSmiley.innerText = emote
 }
 
+//use this for all changes later - maybe
 //----------------------------------------
-function renderCell() {
-  //use this for all changes later
-  //probably not
+function renderCell(pos, value) {
+  var elCell = document.querySelector(`.cell${pos.i}-${pos.j}`)
+  elCell.innerHTML = value
 }
 
 // Returns a random integer between min (inclusive) and max (inclusive)
@@ -85,16 +75,22 @@ function getFormattedDate(date = new Date()) {
 
 //Timer
 //----------------------------------------
-let gtimerId
-
-function startTimer() {
-  let start = Date.now()
-  gtimerId = setInterval(() => {
-    let elapsed = Math.floor((Date.now() - start) / 1000)
-    console.log(`Elapsed time: ${elapsed} seconds`)
+function startTimer(startTime) {
+  var elTimer = document.querySelector('.timer')
+  gTimerInterval = setInterval(() => {
+    var totalSecs = Math.floor((Date.now() - startTime) / 1000)
+    var hour = Math.floor(totalSecs / 3600)
+    var minute = Math.floor((totalSecs - hour * 3600) / 60)
+    var seconds = totalSecs - (hour * 3600 + minute * 60)
+    if (hour < 10) hour = '0' + hour
+    if (minute < 10) minute = '0' + minute
+    if (seconds < 10) seconds = '0' + seconds
+    elTimer.innerHTML = `${hour}:${minute}:${seconds}`
   }, 1000)
 }
+
+// don't need
 //----------------------------------------
-function stopTimer() {
-  clearInterval(gtimerId)
-}
+// function stopTimer() {
+//   clearInterval(gtimerId)
+// }

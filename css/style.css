@@ -1,29 +1,48 @@
 /* DO THIS LAST! DO NOT WASTE TIME ON STYLE RANIA! 
 KEEP IT UGLY FOR NOW, AS LONG AS YOU CAN SEE WHAT'S GOING ON */
 .container {
-    width: 300px;
-    height: 400px;
-    background-color: rgb(153, 138, 138);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 1000px;
+  height: 1000px;
+  background-color: rgb(153, 138, 138);
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
 }
 .container table {
-    background-color: rgb(153, 138, 138);
-    border-collapse: collapse;
-    border: collapse;
+  background-color: rgb(153, 138, 138);
+  border-collapse: collapse;
+  border: collapse;
+  margin-left: 300px;
 }
 
-
 .cell {
-    display: inline-block;
-    padding: 10px;
-    width: 30px;
-    height: 30px;
-    border: 1px solid black;
-    background-color: pink;
+  display: inline-block;
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  background-color: purple;
 }
 
 .revealed {
-    background-color: purple;
+  background-color: pink;
+}
+
+.levels {
+  margin-left: 240px;
+  font-size: 30px;
+}
+
+.timer {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-left: 360px;
+}
+
+.restart {
+  margin-left:380px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  font-size: 25px;
 }
