@@ -12,8 +12,8 @@ const EMPTY = ''
 //Global Variables
 //----------------------------------------
 var gLevel = {
-  SIZE: 4,
-  MINES: 2,
+  SIZE: 8,
+  MINES: 12,
 }
 
 var gIsFirstClick = true
@@ -172,7 +172,7 @@ function checkLives(i, j, mines) {
     }
     if (gLives === 1) {
       if (mines === 2) {
-        gBeginnerLives = 0
+        gLives = 0
       } else {
         elLives.innerText = '🧡'
         renderEmoji(TERRIFIED)
