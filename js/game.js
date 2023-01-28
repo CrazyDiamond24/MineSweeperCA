@@ -84,7 +84,6 @@ function gameOver() {
 }
 //----------------------------------------
 function resetGame() {
-
   var timer = document.querySelector('.timer')
   timer.innerText = '00:00:00'
   gIsFirstClick = true
@@ -112,7 +111,7 @@ function checkVictory() {
     var isVictory =
       gFlaggedMines === gLevel.MINES ||
       totalMines - gLives === flaggedMines + 1 ||
-      gFlaggedMines + gBeginnerLives === totalMines
+      (gFlaggedMines !== 0 && gFlaggedMines + gBeginnerLives === totalMines)
     if (isVictory) {
       clearInterval(gTimerInterval)
       gGame.isOn = false
