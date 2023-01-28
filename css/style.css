@@ -1,6 +1,7 @@
 body {
   background-image: url('https://crazydiamond24.github.io/MineSweeperCA/imgs/sweepers.png');
-  background-size: 1520px;
+  background-size: cover;
+  background-attachment: fixed;
   font-family: 'VT323', monospace, 'Comic Sans MS', 'Chalkboard SE',
     'Comic Neue', sans-serif;
   text-shadow: 1px 1px 2px #000;
