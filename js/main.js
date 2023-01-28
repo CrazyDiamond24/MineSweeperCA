@@ -116,6 +116,7 @@ function onCellMarked(ev, elCell) {
     if (!elCell.isMarked) {
       elCell.isMarked = true
       elCell.innerText = FLAG
+      elCell.classList.add('flag')
       gFlaggedMines++
     } else {
       elCell.isMarked = false

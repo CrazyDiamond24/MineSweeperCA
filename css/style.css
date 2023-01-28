@@ -47,15 +47,11 @@ body {
   background-size: cover;
 }
 
-.mode {
-  font-size: 40px;
-  text-align: center;
-}
-
 .timer {
-  font-size: 40px;
+  font-size: 30px;
   margin-top: 25px;
   text-align: center;
+  color: #42333a;
 }
 .reset {
   text-align: center;
@@ -74,13 +70,21 @@ body {
 
 h2 {
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
+  color: rgb(48, 187, 115);
+  background-color: rgba(27, 68, 112, 0.2);
+  width: fit-content;
+  margin: auto;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  border: 1px solid black;
 }
 
 hr {
-  margin-top: 250px;
-  border-top: 1px solid rgb(6, 76, 21);
-  border-bottom: 1px solid rgb(17, 91, 50);
+  margin-top: 50px;
+  margin-left: 680px;
+  width: 400px;
+  border: none;
 }
 footer {
   font-size: 15px;
@@ -102,4 +106,40 @@ footer {
   margin-top: 10px;
   text-align: center;
   font-size: 18px;
+  color: rgb(211, 124, 124);
+}
+
+.instructions {
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(166, 234, 154);
+}
+.mode {
+  width: fit-content;
+  margin: auto;
+  box-sizing: border-box;
+  font-size: 40px;
+  text-align: center;
+  background-color: rgba(16, 40, 72, 0.4);
+  border-radius: 15px;
+}
+
+.expert {
+  color: rgb(228, 80, 80);
+}
+
+.inter {
+  color: rgb(218, 218, 70);
+}
+
+.beginner {
+  color: rgb(72, 187, 72);
+}
+
+.flag {
+  font-size: 20px;
+}
+
+hr:before {
+  content: '🌸 🌻 🌷 🌼 🌹 🌸';
 }

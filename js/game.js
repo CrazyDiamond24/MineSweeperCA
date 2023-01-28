@@ -104,11 +104,10 @@ function resetGame() {
 //----------------------------------------
 function checkVictory() {
   var totalMines = gLevel.MINES
-    var flaggedMines = gFlaggedMines
+  var flaggedMines = gFlaggedMines
   var shownCount = gGame.shownCount
   var size = gLevel.SIZE
   if (flaggedMines === totalMines || shownCount === size ** 2 - totalMines) {
-    
     //Added another definition of victory to fix the logic of lives (and special case beginner)
     var isVictory =
       gFlaggedMines === gLevel.MINES ||
