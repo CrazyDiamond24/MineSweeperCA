@@ -1,12 +1,9 @@
-/* DO THIS LAST! DO NOT WASTE TIME ON STYLE RANIA! 
-KEEP IT UGLY FOR NOW, AS LONG AS YOU CAN SEE WHAT'S GOING ON */
 body {
-  background-image: url('https://crazydiamond24.github.io/MineSweeperCA/imgs/minefield.jpg');
+  background-image: url('https://crazydiamond24.github.io/MineSweeperCA/imgs/sweepers.png');
   background-size: 1520px;
-  font-family: 'VT323', monospace;
+  font-family: 'VT323', monospace, 'Comic Sans MS', 'Chalkboard SE',
+    'Comic Neue', sans-serif;
   text-shadow: 1px 1px 2px #000;
-
-  /* font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; */
 }
 
 .container table {
@@ -98,4 +95,10 @@ footer {
   width: 300px;
   height: 250px;
   display: none;
+}
+
+.total {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
 }

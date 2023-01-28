@@ -12,13 +12,14 @@
   </head>
   <body onload="onInit()">
     <div class="timer">00:00:00</div>
+    <div class="total">Total Mines: <span class="levelmines"></span></div>
     <h2>Lives left: <span class="lives">🧡🧡🧡</span></h2>
       <div class="mode">
         <label
           ><input
             type="radio"
             data-difficulty="Beginner"
-            onclick="setMode(this)"
+            onclick="setDifficulty(this)"
             name="difficulty"
             checked
           />Beginner</label
@@ -28,7 +29,7 @@
           ><input
             type="radio"
             data-difficulty="Intermediate"
-            onclick="setMode(this)"
+            onclick="setDifficulty(this)"
             name="difficulty"
           />Intermediate</label
         >
@@ -37,7 +38,7 @@
           ><input
             type="radio"
             data-difficulty="Expert"
-            onclick="setMode(this)"
+            onclick="setDifficulty(this)"
             name="difficulty"
           />Expert</label
         >

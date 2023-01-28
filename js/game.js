@@ -32,10 +32,12 @@ function onInit() {
   gMinesPos = []
   isTimerOn = false
   renderEmoji(HAPPY)
+  var elMinesSpan = document.querySelector('.levelmines')
+  elMinesSpan.innerText = gLevel.MINES
 }
 
 //----------------------------------------
-function setMode(elMode) {
+function setDifficulty(elMode) {
   switch (elMode.dataset.difficulty) {
     case 'Beginner':
       gLevel.SIZE = 4
@@ -82,6 +84,7 @@ function gameOver() {
 }
 //----------------------------------------
 function resetGame() {
+
   var timer = document.querySelector('.timer')
   timer.innerText = '00:00:00'
   gIsFirstClick = true
@@ -105,7 +108,11 @@ function checkVictory() {
   var shownCount = gGame.shownCount
   var size = gLevel.SIZE
   if (flaggedMines === totalMines || shownCount === size ** 2 - totalMines) {
-    var isVictory = gFlaggedMines === gLevel.MINES
+    //Added another definition of victory to fix the logic of lives (and special case beginner)
+    var isVictory =
+      gFlaggedMines === gLevel.MINES ||
+      totalMines - gLives === flaggedMines + 1 ||
+      gFlaggedMines + gBeginnerLives === totalMines
     if (isVictory) {
       clearInterval(gTimerInterval)
       gGame.isOn = false

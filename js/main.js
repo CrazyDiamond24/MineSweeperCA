@@ -19,7 +19,10 @@ var gLevel = {
 var gIsFirstClick = true
 var gFlaggedMines
 var gTimerInterval
-var gLives
+var gLives = 3
+
+//global variable for special beginner mode
+var gBeginnerLives = 2
 //----------------------------------------
 function buildBoard(size) {
   const board = []
@@ -86,9 +89,7 @@ function onCellClicked(elCell, i, j) {
     renderCell(pos, MINE)
   }
 
-  var totalCellCount = gLevel.SIZE ** 2
-  var usedCells = gGame.shownCount + gFlaggedMines
-  if (usedCells === totalCellCount) checkVictory()
+  checkVictory()
   elCell.classList.add('revealed')
 }
 
@@ -108,7 +109,6 @@ function placeMines(i, j) {
   }
 }
 
-//marking
 //----------------------------------------
 function onCellMarked(ev, elCell) {
   ev.preventDefault()
@@ -129,21 +129,25 @@ function onCellMarked(ev, elCell) {
   }
 }
 
+//+Bonus
 //----------------------------------------
 function expandShown(board, i, j) {
-  if (board[i][j].minesAround === '') {
-    for (var k = i - 1; k <= i + 1; k++) {
-      if (k < 0 || k >= board.length) continue
-      for (var l = j - 1; l <= j + 1; l++) {
-        if (l < 0 || l >= board[0].length) continue
+  for (var k = i - 1; k <= i + 1; k++) {
+    if (k < 0 || k >= board.length) continue
+    for (var l = j - 1; l <= j + 1; l++) {
+      if (l < 0 || l >= board[0].length) continue
+      if (!board[k][l].isShown) {
+        board[k][l].isShown = true
+        //get the number
         board[k][l].minesAround = setMinesNegsCount(board, k, l)
-        if (!board[k][l].isShown) {
-          board[k][l].isShown = true
-
-          var elCell = document.querySelector(`td.cell${k}-${l}`)
-          elCell.innerText = board[k][l].minesAround
-          elCell.classList.add('revealed')
-          gGame.shownCount++
+        //get the cell and update text
+        var elCell = document.querySelector(`td.cell${k}-${l}`)
+        elCell.innerText = board[k][l].minesAround
+        elCell.classList.add('revealed')
+        gGame.shownCount++
+        //recrusively call the function if the cell has no mines around
+        if (board[k][l].minesAround === '') {
+          expandShown(board, k, l)
         }
       }
     }
@@ -158,19 +162,23 @@ function checkLives(i, j, mines) {
 
     var elLives = document.querySelector('.lives')
     if (gLives === 2) {
-      elLives.innerText = '🧡🧡🧡'
-      renderEmoji(SCARED)
+      if (mines === 2) {
+        gBeginnerLives = 1
+        renderEmoji(TERRIFIED)
+      } else {
+        elLives.innerText = '🧡🧡'
+        renderEmoji(SCARED)
+      }
     }
     if (gLives === 1) {
       if (mines === 2) {
-        elLives.innerText = '💔'
-        gameOver()
+        gBeginnerLives = 0
       } else {
         elLives.innerText = '🧡'
         renderEmoji(TERRIFIED)
       }
     }
-    if (gLives === 0) {
+    if (gLives === 0 || gBeginnerLives === 0) {
       elLives.innerText = '💔'
       gameOver()
     }
