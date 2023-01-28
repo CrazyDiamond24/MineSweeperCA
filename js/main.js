@@ -121,6 +121,7 @@ function onCellMarked(ev, elCell) {
     } else {
       elCell.isMarked = false
       elCell.innerText = EMPTY
+      elCell.classList.remove('flag')
       gFlaggedMines--
     }
 
