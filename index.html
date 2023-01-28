@@ -5,20 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <title>Minesweeper</title>
   </head>
   <body onload="onInit()">
-    <!-- more things to be added such as lives, hints, count.. -->
     <div class="timer">00:00:00</div>
-    <h2 class="lives">Lives left: <span>❤️❤️❤️</span></h2>
-    
-      <div class="levels">
+    <h2>Lives left: <span class="lives">🧡🧡🧡</span></h2>
+      <div class="mode">
         <label
           ><input
             type="radio"
-            data-level="Beginner"
+            data-difficulty="Beginner"
             onclick="setMode(this)"
-            name="level"
+            name="difficulty"
             checked
           />Beginner</label
         >
@@ -26,29 +27,30 @@
         <label
           ><input
             type="radio"
-            data-level="Medium"
+            data-difficulty="Intermediate"
             onclick="setMode(this)"
-            name="level"
-          />Medium</label
+            name="difficulty"
+          />Intermediate</label
         >
 
         <label
           ><input
             type="radio"
-            data-level="Expert"
+            data-difficulty="Expert"
             onclick="setMode(this)"
-            name="level"
+            name="difficulty"
           />Expert</label
         >
       </div>
     </div>
-    <div class="modal">Game Over!</div>
-    <button class="restart" onclick="resetGame()">😊</button>
+    <div class="modal"></div>
+    <img src="" class="end" alt="victory">
+    <div class="reset"><button class="restart" onclick="resetGame()">😊</button></div>
     <div class="container">
       
     </div>
   <hr>
-    <footer>Rania Elizabeth Kittan</footer>
+    <footer>Created by: Rania Elizabeth Kittan <br> Jan 2023</footer>
 
     <script src="js/util.js"></script>
     <script src="js/game.js"></script>

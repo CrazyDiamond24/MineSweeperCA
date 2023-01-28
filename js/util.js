@@ -2,17 +2,13 @@
 // Utility Functions
 //～*～♡～*～♥～*～♡～*～♥～*～♡～*～♥～*～♡～*～//
 
-
 //----------------------------------------
 function renderBoard() {
-
   var strHTML = `<table><tbody>`
   for (var i = 0; i < gBoard.length; i++) {
     strHTML += `<tr>`
     for (var j = 0; j < gBoard[i].length; j++) {
-      var currCell = gBoard[i][j]
       var className = `cell cell${i}-${j}`
-      var cellVal = currCell.isMine ? MINE : currCell.minesAround
       strHTML += `<td class="${className}" onclick="onCellClicked(this,${i},${j})" oncontextmenu="onCellMarked(event, this, ${i}, ${j})">${''}</td>`
     }
     strHTML += `</tr>`
@@ -32,6 +28,9 @@ function renderEmoji(emote) {
 function renderCell(pos, value) {
   var elCell = document.querySelector(`.cell${pos.i}-${pos.j}`)
   elCell.innerHTML = value
+  if (gBoard[pos.i][pos.j].isMine) {
+    elCell.classList.add('danger')
+  }
 }
 
 // Returns a random integer between min (inclusive) and max (inclusive)
@@ -85,5 +84,3 @@ function startTimer(startTime) {
     elTimer.innerHTML = `${hour}:${minute}:${seconds}`
   }, 1000)
 }
-
-

@@ -4,7 +4,8 @@
 
 //Elements
 //----------------------------------------
-const MINE = '💣'
+const MINE = `<img src="imgs/bomb.gif" class="danger">`
+
 const FLAG = '🚩'
 const EMPTY = ''
 
@@ -47,7 +48,6 @@ function setMinesNegsCount(board, rowIdx, colIdx) {
     }
   }
   if (!minesAround) minesAround = ''
-  console.log('minesAround', minesAround)
   return minesAround
 }
 
@@ -72,6 +72,7 @@ function onCellClicked(elCell, i, j) {
 
   if (!cell.isMine) {
     cell.isShown = true
+    gGame.shownCount++
     cell.minesAround = setMinesNegsCount(gBoard, i, j)
     if (!cell.minesAround) {
       expandShown(gBoard, i, j)
@@ -80,35 +81,29 @@ function onCellClicked(elCell, i, j) {
   }
 
   if (cell.isMine) {
-    if (gLives) {
-      cell.isShown = true
-      renderCell(pos, MINE)
-      gGame.shownCount++
-      renderEmoji(DEAD)
-      gLives--
-    } else {
-      gameOver()
-    }
-    // TODO FIX THIS
-    // isVictory()
+    checkLives(i, j, gLevel.MINES)
+    cell.isShown = true
+    renderCell(pos, MINE)
   }
+
+  var totalCellCount = gLevel.SIZE ** 2
+  var usedCells = gGame.shownCount + gFlaggedMines
+  if (usedCells === totalCellCount) checkVictory()
   elCell.classList.add('revealed')
 }
 
 //----------------------------------------
 function placeMines(i, j) {
-  console.log('placing')
-  for (var i = 0; i < gLevel.MINES; i++) {
+  var mines = gLevel.MINES
+  while (mines > 0) {
     var row = getRandomIntInclusive(0, gLevel.SIZE - 1)
     var col = getRandomIntInclusive(0, gLevel.SIZE - 1)
     if (row === i && col === j) {
-      i--
       continue
     }
     if (!gBoard[row][col].isMine) {
       gBoard[row][col].isMine = true
-    } else {
-      i--
+      mines--
     }
   }
 }
@@ -127,8 +122,13 @@ function onCellMarked(ev, elCell) {
       elCell.innerText = EMPTY
       gFlaggedMines--
     }
+
+    var totalCellCount = gLevel.SIZE ** 2
+    var usedCells = gGame.shownCount + gFlaggedMines
+    if (usedCells === totalCellCount) checkVictory()
   }
 }
+
 //----------------------------------------
 function expandShown(board, i, j) {
   if (board[i][j].minesAround === '') {
@@ -143,24 +143,36 @@ function expandShown(board, i, j) {
           var elCell = document.querySelector(`td.cell${k}-${l}`)
           elCell.innerText = board[k][l].minesAround
           elCell.classList.add('revealed')
+          gGame.shownCount++
         }
       }
     }
   }
 }
 
-//Not implemented
 //----------------------------------------
-function checkLives() {
-  var elLives = document.querySelector('.lives')
-
+function checkLives(i, j, mines) {
   if (!gLives) return
   if (gBoard[i][j].isMine && gLives !== 0) {
     gLives--
-    if (gLives === 2) elLives.innerText = '❤️❤️'
-    if (gLives === 1) elLives.innerText = '❤️'
-    if (gLives === 0) elLives.innerText = '💔'
+
+    var elLives = document.querySelector('.lives')
+    if (gLives === 2) {
+      elLives.innerText = '🧡🧡🧡'
+      renderEmoji(SCARED)
+    }
+    if (gLives === 1) {
+      if (mines === 2) {
+        elLives.innerText = '💔'
+        gameOver()
+      } else {
+        elLives.innerText = '🧡'
+        renderEmoji(TERRIFIED)
+      }
+    }
+    if (gLives === 0) {
+      elLives.innerText = '💔'
+      gameOver()
+    }
   }
-  renderEmoji(DEAD)
-  gGame.isOn = !gGame.isOn
 }
