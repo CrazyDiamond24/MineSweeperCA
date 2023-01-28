@@ -1,7 +1,7 @@
 /* DO THIS LAST! DO NOT WASTE TIME ON STYLE RANIA! 
 KEEP IT UGLY FOR NOW, AS LONG AS YOU CAN SEE WHAT'S GOING ON */
 body {
-  background-image: url('/imgs/minefield.jpg');
+  background-image: url('imgs/minefield.jpg');
   background-size: 1520px;
   font-family: 'VT323', monospace;
   text-shadow: 1px 1px 2px #000;
@@ -24,7 +24,7 @@ body {
   padding: 10px;
   width: 20px;
   height: 20px;
-  background-image: url('/imgs/grass.png');
+  background-image: url('imgs/grass.png');
   background-size: contain;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 1px #000000;
@@ -34,7 +34,7 @@ body {
 }
 
 .danger {
-  background-image: url('/imgs/danger.jpg') !important;
+  background-image: url('imgs/danger.jpg') !important;
   background-size: contain;
 }
 
@@ -45,7 +45,7 @@ body {
   transform: translate(-20%, -10%);
 }
 .revealed {
-  background-image: url('/imgs/open.jpg');
+  background-image: url('imgs/open.jpg');
   background-size: cover;
 }
 
@@ -70,7 +70,7 @@ body {
   height: 50px;
   width: 50px;
   font-size: 25px;
-  background-image: url('/imgs/emoji.jpg');
+  background-image: url('imgs/emoji.jpg');
   background-size: cover;
 }
 
