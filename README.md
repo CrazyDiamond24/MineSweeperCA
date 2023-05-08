@@ -1,4 +1,4 @@
-# MineSweeperCA
+# Minesweeper
 
 ## Description
 
