@@ -4,6 +4,8 @@
 
 This is a nostalgic remake of the classic game Minesweeper built with pure JavaScript, HTML, and CSS. It is my very first project created during my time at Coding Academy bootcamp.
 
+Check out the [Demo](https://crazydiamond24.github.io/MineSweeperCA/)
+
 ## Screenshots
 
 ### Game Screen
